@@ -5,24 +5,26 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float backwardsSpeed = -0.1f;
+    public float backwardsSpeed;
     private Camera cam;
 
     void Start()
     {
         cam = FindObjectOfType<Camera>();
-        
+
+        float scale = Mathf.Round(Random.Range(1.0f, 2.0f)); 
+        transform.localScale = new Vector2(scale, 1);        
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = transform.position + new Vector3(backwardsSpeed, 0.0f, 0.0f);
+        transform.position = transform.position + new Vector3(backwardsSpeed / 10.0f, 0.0f, 0.0f);
 
         Vector3 viewPos = cam.WorldToViewportPoint(transform.position);
         
 
-        if (viewPos.x < -0.1f) {
+        if (viewPos.x < -1.0f) {
             Destroy(this.gameObject);
         }
         
