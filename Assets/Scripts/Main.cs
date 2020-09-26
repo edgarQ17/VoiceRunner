@@ -5,19 +5,19 @@ using UnityEngine;
 public class Main : MonoBehaviour
 {
     public GameObject box;
-    private float firstX = 0.0f;
-    private float floorLevel = -3.17f;
-
-    private float frequency = 1.0f;
+    public float firstX;
+    
+    public float frequency;
+    
     private float timer;
 
-    
+    private Camera cam;    
 
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(box, new Vector2(firstX + 20, floorLevel), Quaternion.identity);
         timer = frequency;
+        cam = FindObjectOfType<Camera>();
     }
 
     // Update is called once per frame
@@ -27,7 +27,9 @@ public class Main : MonoBehaviour
 
         if(timer <= 0.0f)
         {
-            Instantiate(box, new Vector2(firstX + 20, floorLevel), Quaternion.identity);
+            Vector3 vwCoords = cam.ViewportToWorldPoint(new Vector3(2.0f, 0.15f, 1.0f));
+
+            Instantiate(box, vwCoords, Quaternion.identity);
             timer = frequency;
         }
 
